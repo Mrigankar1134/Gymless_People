@@ -1,0 +1,9 @@
+[build]
+  command = "bash netlify-build.sh"
+  publish = "build"
+
+[build.environment]
+  NODE_ENV = "development"
+
+[build.processing]
+  skip_processing = false
