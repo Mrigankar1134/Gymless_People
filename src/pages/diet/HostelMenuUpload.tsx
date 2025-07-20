@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MenuItem as MenuItemType } from '../../types/diet';
+import { MenuItem } from '../../types/diet';
 import axios from 'axios';
 import {
   Box,
@@ -26,7 +26,7 @@ import {
   InputLabel,
   Select,
   SelectChangeEvent,
-  MenuItem,
+  MenuItem as MuiMenuItem,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -38,6 +38,18 @@ import {
   NavigateBefore as NavigateBeforeIcon,
   Check as CheckIcon,
 } from '@mui/icons-material';
+
+// Extended MenuItem type with additional properties for the hostel menu
+type MenuItemType = MenuItem & {
+  day: string;
+  mealType: string;
+  nutritionEstimate?: {
+    calories: number;
+    protein: number;
+    carbs: number;
+    fat: number;
+  };
+};
 
 // Using the MenuItem interface from diet.ts
 // Removed unused MenuEntry interface
@@ -65,6 +77,11 @@ const HostelMenuUpload: React.FC = () => {
     name: '',
     mealType: 'Breakfast',
     day: 'Monday',
+    category: 'breakfast' as 'breakfast' | 'lunch' | 'dinner' | 'snack',
+    calories: 0,
+    protein: 0,
+    carbs: 0,
+    fat: 0
   });
   const [loading, setLoading] = useState(false);
   const [analysis, setAnalysis] = useState<any>(null);
@@ -106,6 +123,11 @@ const HostelMenuUpload: React.FC = () => {
       name: '',
       mealType: 'Breakfast',
       day: 'Monday',
+      category: 'breakfast',
+      calories: 0,
+      protein: 0,
+      carbs: 0,
+      fat: 0
     });
     setError(null);
   };
@@ -116,17 +138,52 @@ const HostelMenuUpload: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setNewItem({
-      ...newItem,
-      [name]: value,
-    });
+    
+    // Handle numeric inputs
+    if (['calories', 'protein', 'carbs', 'fat'].includes(name)) {
+      const numValue = value === '' ? 0 : Number(value);
+      setNewItem({
+        ...newItem,
+        [name]: numValue,
+      });
+    } else {
+      setNewItem({
+        ...newItem,
+        [name]: value,
+      });
+    }
   };
 
   const handleSelectChange = (e: SelectChangeEvent<string>, field: string) => {
-    setNewItem({
-      ...newItem,
-      [field]: e.target.value,
-    });
+    // For category field, ensure it's a valid type
+    if (field === 'category') {
+      const categoryValue = e.target.value as 'breakfast' | 'lunch' | 'dinner' | 'snack';
+      setNewItem({
+        ...newItem,
+        [field]: categoryValue,
+      });
+    } else if (field === 'mealType') {
+      // Update category based on mealType for convenience
+      const mealType = e.target.value;
+      let category: 'breakfast' | 'lunch' | 'dinner' | 'snack' = 'breakfast';
+      
+      // Map mealType to category
+      if (mealType === 'Breakfast') category = 'breakfast';
+      else if (mealType === 'Lunch') category = 'lunch';
+      else if (mealType === 'Dinner') category = 'dinner';
+      else if (mealType === 'Snack') category = 'snack';
+      
+      setNewItem({
+        ...newItem,
+        [field]: mealType,
+        category: category
+      });
+    } else {
+      setNewItem({
+        ...newItem,
+        [field]: e.target.value,
+      });
+    }
   };
 
   const analyzeMenu = async () => {
@@ -283,9 +340,9 @@ const HostelMenuUpload: React.FC = () => {
                       onChange={(e) => handleSelectChange(e, 'day')}
                     >
                       {days.map(day => (
-                        <MenuItem key={day} value={day}>
+                        <MuiMenuItem key={day} value={day}>
                           {day}
-                        </MenuItem>
+                        </MuiMenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -299,12 +356,66 @@ const HostelMenuUpload: React.FC = () => {
                       onChange={(e) => handleSelectChange(e, 'mealType')}
                     >
                       {mealTypes.map(type => (
-                        <MenuItem key={type} value={type}>
+                        <MuiMenuItem key={type} value={type}>
                           {type}
-                        </MenuItem>
+                        </MuiMenuItem>
                       ))}
                     </Select>
                   </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth size="small">
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                      value={newItem.category}
+                      label="Category"
+                      onChange={(e) => handleSelectChange(e, 'category')}
+                    >
+                      <MuiMenuItem value="breakfast">Breakfast</MuiMenuItem>
+                      <MuiMenuItem value="lunch">Lunch</MuiMenuItem>
+                      <MuiMenuItem value="dinner">Dinner</MuiMenuItem>
+                      <MuiMenuItem value="snack">Snack</MuiMenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    fullWidth
+                    label="Calories"
+                    name="calories"
+                    type="number"
+                    value={newItem.calories === 0 ? '' : newItem.calories}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    size="small"
+                    placeholder="0"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    fullWidth
+                    label="Protein (g)"
+                    name="protein"
+                    type="number"
+                    value={newItem.protein === 0 ? '' : newItem.protein}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    size="small"
+                    placeholder="0"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    fullWidth
+                    label="Carbs (g)"
+                    name="carbs"
+                    type="number"
+                    value={newItem.carbs === 0 ? '' : newItem.carbs}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    size="small"
+                    placeholder="0"
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <Button
