@@ -1,7 +1,4 @@
-import axios from 'axios';
-
-// In a real application, this would be an environment variable
-const API_URL = 'https://api.example.com';
+// In a real application, this would connect to a backend API
 
 interface AuthResponse {
   success: boolean;

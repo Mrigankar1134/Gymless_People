@@ -20,9 +20,7 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-// For backward compatibility during transition
-const RENTAL_ITEMS_KEY = 'rentalItems';
-const RENTAL_BOOKINGS_KEY = 'rentalBookings';
+// Service constants
 
 // Types
 interface RentalItem {
@@ -322,100 +320,52 @@ export const getBookings = async (userId: string, role: 'renter' | 'owner'): Pro
  * @returns {Promise<ServiceResponse<RentalItem[]>>}
  */
 export const getBorrowedItems = async (): Promise<ServiceResponse<RentalItem[]>> => {
-  try {
-    // Placeholder implementation - backend doesn't have borrowed items endpoints yet
-    // In a real implementation, this would call an API endpoint like /rental/user/borrowed
-    return {
-      success: true,
-      data: []
-    };
-  } catch (error: any) {
-    console.error('Error getting borrowed items:', error);
-    return {
-      success: false,
-      error: error.response?.data?.message || error.message || 'Failed to fetch borrowed items',
-    };
-  }
+  // Placeholder implementation - backend doesn't have borrowed items endpoints yet
+  // In a real implementation, this would call an API endpoint like /rental/user/borrowed
+  return {
+    success: true,
+    data: []
+  };
 };
 
 export const getBookingById = async (id: string): Promise<ServiceResponse<RentalBooking>> => {
-  try {
-    // This is a placeholder implementation until we implement booking endpoints in the backend
-    return {
-      success: false,
-      error: 'Booking functionality not yet implemented in the backend',
-    };
-  } catch (error: any) {
-    console.error('Error fetching booking:', error);
-    return {
-      success: false,
-      error: error.response?.data?.message || error.message || 'Failed to fetch booking',
-    };
-  }
+  // This is a placeholder implementation until we implement booking endpoints in the backend
+  return {
+    success: false,
+    error: 'Booking functionality not yet implemented in the backend',
+  };
 };
 
 export const createBooking = async (booking: Omit<RentalBooking, 'id'>): Promise<ServiceResponse<RentalBooking>> => {
-  try {
-    // This is a placeholder implementation until we implement booking endpoints in the backend
-    return {
-      success: false,
-      error: 'Booking functionality not yet implemented in the backend',
-    };
-  } catch (error: any) {
-    console.error('Error creating booking:', error);
-    return {
-      success: false,
-      error: error.response?.data?.message || error.message || 'Failed to create booking',
-    };
-  }
+  // This is a placeholder implementation until we implement booking endpoints in the backend
+  return {
+    success: false,
+    error: 'Booking functionality not yet implemented in the backend',
+  };
 };
 
 export const updateBooking = async (id: string, updates: Partial<RentalBooking>): Promise<ServiceResponse<RentalBooking>> => {
-  try {
-    // This is a placeholder implementation until we implement booking endpoints in the backend
-    return {
-      success: false,
-      error: 'Booking functionality not yet implemented in the backend',
-    };
-  } catch (error: any) {
-    console.error('Error updating booking:', error);
-    return {
-      success: false,
-      error: error.response?.data?.message || error.message || 'Failed to update booking',
-    };
-  }
+  // This is a placeholder implementation until we implement booking endpoints in the backend
+  return {
+    success: false,
+    error: 'Booking functionality not yet implemented in the backend',
+  };
 };
 
 export const cancelBooking = async (id: string): Promise<ServiceResponse<RentalBooking>> => {
-  try {
-    // This is a placeholder implementation until we implement booking endpoints in the backend
-    return {
-      success: false,
-      error: 'Booking functionality not yet implemented in the backend',
-    };
-  } catch (error: any) {
-    console.error('Error cancelling booking:', error);
-    return {
-      success: false,
-      error: error.response?.data?.message || error.message || 'Failed to cancel booking',
-    };
-  }
+  // This is a placeholder implementation until we implement booking endpoints in the backend
+  return {
+    success: false,
+    error: 'Booking functionality not yet implemented in the backend',
+  };
 };
 
 export const rateBooking = async (id: string, ratingData: { rating: number; comment?: string }): Promise<ServiceResponse<RentalBooking>> => {
-  try {
-    // This is a placeholder implementation until we implement booking endpoints in the backend
-    return {
-      success: false,
-      error: 'Booking functionality not yet implemented in the backend',
-    };
-  } catch (error: any) {
-    console.error('Error rating booking:', error);
-    return {
-      success: false,
-      error: error.response?.data?.message || error.message || 'Failed to rate booking',
-    };
-  }
+  // This is a placeholder implementation until we implement booking endpoints in the backend
+  return {
+    success: false,
+    error: 'Booking functionality not yet implemented in the backend',
+  };
 };
 
 // We've removed the initializeRentalItems function since we're now using the API

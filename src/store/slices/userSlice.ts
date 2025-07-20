@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { login as loginService } from '../../services/authService';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
   id: string | null;
