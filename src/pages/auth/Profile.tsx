@@ -81,6 +81,7 @@ const Profile: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [editMode, setEditMode] = useState(false);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -116,6 +117,8 @@ const Profile: React.FC = () => {
   
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
+    // Set edit mode when switching to Edit Profile tab (index 1)
+    setEditMode(newValue === 1);
   };
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,6 +186,7 @@ const Profile: React.FC = () => {
         }));
         setSuccess('Profile updated successfully!');
         setEditMode(false);
+        setTabValue(0); // Return to profile view after successful update
       } else {
         setError(response.error || 'Failed to update profile. Please try again.');
       }
@@ -248,6 +252,9 @@ const Profile: React.FC = () => {
         
         {/* Profile View */}
         <TabPanel value={tabValue} index={0}>
+          {success && !editMode && (
+            <Alert severity="success" sx={{ mb: 2 }}>{success}</Alert>
+          )}
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: { xs: 'center', md: 'flex-start' } }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: { xs: 3, md: 0 }, mr: { md: 4 } }}>
               <Avatar
@@ -336,13 +343,13 @@ const Profile: React.FC = () => {
         
         {/* Edit Profile */}
         <TabPanel value={tabValue} index={1}>
-          {success && (
+          {success && editMode && (
             <Alert severity="success" sx={{ mb: 3 }}>
               {success}
             </Alert>
           )}
           
-          {error && (
+          {error && editMode && (
             <Alert severity="error" sx={{ mb: 3 }}>
               {error}
             </Alert>
