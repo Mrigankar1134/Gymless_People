@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MenuItem as MenuItemType } from '../../types/diet';
 import axios from 'axios';
 import {
   Box,
@@ -38,7 +39,10 @@ import {
   Check as CheckIcon,
 } from '@mui/icons-material';
 
-interface MenuItem {
+// Using the MenuItem interface from diet.ts
+// Removed unused MenuEntry interface
+/*
+interface MenuEntry {
   id: string;
   name: string;
   mealType: string;
@@ -50,12 +54,13 @@ interface MenuItem {
     fat: number;
   };
 }
+*/
 
 const HostelMenuUpload: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [activeStep, setActiveStep] = useState(0);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItemType[]>([]);
   const [newItem, setNewItem] = useState({
     name: '',
     mealType: 'Breakfast',
@@ -91,7 +96,7 @@ const HostelMenuUpload: React.FC = () => {
   const handleAddItem = () => {
     if (newItem.name.trim() === '') return;
 
-    const item: MenuItem = {
+    const item: MenuItemType = {
       id: Date.now().toString(),
       ...newItem,
     };

@@ -7,7 +7,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardActions,
   Button,
   TextField,
   FormControl,
@@ -25,7 +24,6 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   Divider,
-  Alert,
   Snackbar,
   CircularProgress,
   LinearProgress,
@@ -38,14 +36,12 @@ import {
   Add as AddIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
-  Check as CheckIcon,
   Close as CloseIcon,
   CalendarToday as CalendarIcon,
   Timeline as TimelineIcon,
-  LocalFireDepartment as FireIcon,
   AccessTime as TimeIcon,
-  Favorite as HeartIcon,
   Save as SaveIcon,
+  LocalFireDepartment as FireIcon,
 } from '@mui/icons-material';
 
 // Mock data for exercise types

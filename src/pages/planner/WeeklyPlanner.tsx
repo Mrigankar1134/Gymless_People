@@ -69,7 +69,6 @@ const WeeklyPlanner: React.FC = () => {
   const [editItemId, setEditItemId] = useState<string | null>(null);
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const dayIndex = days.indexOf(days[currentTab]);
 
   useEffect(() => {
     // Simulate fetching data

@@ -7,7 +7,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardActions,
   Button,
   TextField,
   FormControl,
@@ -28,7 +27,6 @@ import {
   DialogActions,
   useTheme,
   useMediaQuery,
-  Divider,
   List,
   ListItem,
   ListItemText,
@@ -41,7 +39,6 @@ import {
   IconButton,
   Rating,
   Snackbar,
-  MobileStepper,
 } from '@mui/material';
 import {
   FitnessCenter as FitnessCenterIcon,
@@ -51,33 +48,13 @@ import {
   LocalFireDepartment as FireIcon,
   EmojiEvents as GoalIcon,
   EmojiEvents,
-  Settings as SettingsIcon,
   PlayCircleOutline as PlayIcon,
   Check as CheckIcon,
-  Favorite as FavoriteIcon,
-  Favorite,
-  FavoriteBorder as FavoriteBorderIcon,
   BarChart as BarChartIcon,
-  BarChart,
   History as HistoryIcon,
-  History,
-  Videocam as VideocamIcon,
-  Videocam,
-  Info as InfoIcon,
-  Info,
-  Star as StarIcon,
-  Star,
-  StarBorder as StarBorderIcon,
-  Refresh as RefreshIcon,
-  Refresh,
-  Save as SaveIcon,
-  Save,
-  Edit as EditIcon,
-  Edit,
   Close as CloseIcon,
-  ArrowBack,
-  ArrowForward,
-  CheckCircle,
+  Refresh as RefreshIcon,
+  Videocam as VideocamIcon,
   LocalFireDepartment,
 } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
@@ -95,23 +72,13 @@ interface ExerciseDemo {
   difficulty: 'beginner' | 'intermediate' | 'advanced';
 }
 
-interface WorkoutFeedback {
-  id: string;
-  planId: string;
-  date: string;
-  rating: number;
-  feedback: string;
-  completed: boolean;
-  duration: number;
-  caloriesBurned: number;
-}
+// Removed unused interface WorkoutFeedback
 
 const VirtualTrainer: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
-  const { workoutPlans, workoutSessions, loading, error } = useSelector((state: RootState) => state.exercise);
-  const user = useSelector((state: RootState) => state.user);
+  const { workoutPlans, workoutSessions, error } = useSelector((state: RootState) => state.exercise);
   
   // Stepper state
   const [activeStep, setActiveStep] = useState(0);
@@ -166,7 +133,7 @@ const VirtualTrainer: React.FC = () => {
   });
   
   // Refs for scrolling
-  const planSectionRef = useRef<HTMLDivElement>(null);
+  // Removed unused planSectionRef
   const progressSectionRef = useRef<HTMLDivElement>(null);
   
   const goals = [
@@ -235,8 +202,9 @@ const VirtualTrainer: React.FC = () => {
     { value: 'asthma', label: 'Asthma' },
   ];
   
-  // Sample exercise demos for the demo dialog
-  const exerciseDemos: ExerciseDemo[] = [
+  // Sample exercise demos for the demo dialog - defined but not used in current implementation
+  // Commented out to fix ESLint warning
+  /*const exerciseDemos: ExerciseDemo[] = [
     {
       id: 'ex1',
       name: 'Push-up',
@@ -262,6 +230,7 @@ const VirtualTrainer: React.FC = () => {
       difficulty: 'beginner',
     },
   ];
+  */
   
   // Effect to calculate progress stats from workout sessions
   useEffect(() => {
@@ -347,10 +316,10 @@ const VirtualTrainer: React.FC = () => {
   };
   
   // Demo video dialog handlers
-  const openDemoDialog = (exercise: ExerciseDemo) => {
-    setSelectedExercise(exercise);
-    setDemoDialogOpen(true);
-  };
+  // const openDemoDialog = (exercise: ExerciseDemo) => {
+//   setSelectedExercise(exercise);
+//   setDemoDialogOpen(true);
+// };
   
   const closeDemoDialog = () => {
     setDemoDialogOpen(false);
@@ -401,14 +370,14 @@ const VirtualTrainer: React.FC = () => {
     });
   };
   
-  // Scroll handlers
-  const scrollToPlans = () => {
-    planSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-  
-  const scrollToProgress = () => {
-    progressSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  // Scroll handlers - defined but not currently used
+// const scrollToPlans = () => {
+//   planSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+// };
+// 
+// const scrollToProgress = () => {
+//   progressSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+// };
   
   // Plan generation
   const generatePlan = async () => {

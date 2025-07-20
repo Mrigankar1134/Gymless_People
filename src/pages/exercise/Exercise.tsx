@@ -27,7 +27,6 @@ import {
   FitnessCenter as FitnessCenterIcon,
   PlaylistAddCheck as PlaylistAddCheckIcon,
   VideoLibrary as VideoLibraryIcon,
-  Add as AddIcon,
   PlayCircleOutline as PlayCircleOutlineIcon,
 } from '@mui/icons-material';
 
@@ -53,7 +52,7 @@ import {
 } from '../../store/slices/exerciseSlice';
 
 // Types
-import { Exercise, WorkoutPlan, WorkoutSession } from '../../types/exercise';
+import { WorkoutPlan, WorkoutSession } from '../../types/exercise';
 
 interface TabPanelProps {
   children?: React.ReactNode;

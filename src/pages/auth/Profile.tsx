@@ -78,7 +78,6 @@ const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
   
   const [tabValue, setTabValue] = useState(0);
-  const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
@@ -129,13 +128,14 @@ const Profile: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleEdit = () => {
-    setEditMode(true);
+  // Form data is initialized in useEffect below
+  
+  // This function is used to reset form state when canceling edits
+  const resetForm = () => {
+    setEditMode(false);
     setSuccess('');
     setError('');
-  };
-  
-  const handleCancel = () => {
+    
     // Reset form data to original user data
     if (user) {
       setFormData({
@@ -148,10 +148,6 @@ const Profile: React.FC = () => {
         fitnessGoal: user.profile?.fitnessGoal || '',
       });
     }
-    
-    setEditMode(false);
-    setSuccess('');
-    setError('');
   };
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -479,7 +475,10 @@ const Profile: React.FC = () => {
                     variant="outlined"
                     color="secondary"
                     startIcon={<CancelIcon />}
-                    onClick={() => setTabValue(0)}
+                    onClick={() => {
+                      resetForm();
+                      setTabValue(0);
+                    }}
                     disabled={loading}
                   >
                     Cancel

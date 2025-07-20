@@ -21,11 +21,6 @@ import {
   DialogActions,
   TextField,
   CircularProgress,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  ListItemSecondaryAction,
   Snackbar,
   Alert,
   Badge,
@@ -40,12 +35,10 @@ import {
   DirectionsRun as DirectionsRunIcon,
   SelfImprovement as SelfImprovementIcon,
   Check as CheckIcon,
-  Close as CloseIcon,
   Star as StarIcon,
-  History as HistoryIcon,
   Upload as UploadIcon,
   ArrowForward as ArrowForwardIcon,
-  ArrowBack as ArrowBackIcon,
+  ArrowBack as ArrowBackIcon
 } from '@mui/icons-material';
 
 // This is our component's RentalItem interface, different from the service's RentalItem
