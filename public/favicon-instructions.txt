@@ -1,0 +1,11 @@
+To generate PNG versions of the favicon from the SVG:
+
+1. Open the favicon.svg in a browser or image editor
+2. Export/save as PNG in the following sizes:
+   - 16x16 (favicon-16x16.png)
+   - 32x32 (favicon-32x32.png)
+   - 48x48 (favicon-48x48.png)
+
+These PNG files should be placed in the same directory as the SVG file for better browser compatibility.
+
+Alternatively, you can use online tools like https://realfavicongenerator.net/ to upload the SVG and generate all the necessary favicon formats and sizes.
